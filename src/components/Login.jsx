@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import './Login.css'; 
+import './stylesheets/Login.css'; 
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -17,7 +19,7 @@ function Login() {
     };
 
     try {
-      const response = await fetch('YOUR_API_URL/login', {
+      const response = await fetch('http://localhost:8080/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,11 +27,16 @@ function Login() {
         body: JSON.stringify(data),
       });
 
+      // remove later
+      console.log("data sent to the server is " + data);
+
       if (!response.ok) {
         throw new Error('Login failed');
       }
 
-      const result = await response.json();
+      const result = await response.text();
+      localStorage.setItem('token', result);
+      navigate('/homeUser');
 
       console.log(result);
 
