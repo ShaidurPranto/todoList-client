@@ -1,9 +1,9 @@
-import './App.css'
+import './stylesheets/App.css'
 import {BrowserRouter , Routes , Route } from "react-router-dom"
-import Home from "./components/Home"
-import Login from "./components/Login"
-import Signup from "./components/Signup"
-import HomeUser from './components/HomeUser'
+import Home from "./Home"
+import Login from "./Login"
+import Signup from "./Signup"
+import HomeUser from './HomeUser'
 
 function App() {
   return (

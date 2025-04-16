@@ -1,23 +1,13 @@
-/* HomeUser component styles */
 .home-user-container {
   background-color: #121212;
   color: #ffffff;
   padding: 20px;
   font-family: Arial, sans-serif;
   height: 100vh;
-}
-
-.heading {
-  color: #f0f0f0;
-  text-align: center;
-  font-size: 2.5rem;
-  margin-top: 20px;
-}
-
-.create-task-btn {
-  font-size: 1.2rem;
-  padding: 10px 20px;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
 }
 
 .section-heading {
@@ -35,19 +25,6 @@
 
 .task-list {
   margin-top: 30px;
-}
-
-.dummy-card {
-  background-color: #333333;
-  border-radius: 8px;
-  width: 45%;
-  margin-top: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dummy-card .card-title {
-  color: #ff5722;
-  font-size: 1.2rem;
 }
 
 .empty-task-card {
