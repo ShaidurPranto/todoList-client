@@ -54,9 +54,37 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
     handleClose();
   };
 
-  const handleDelete = () => {
-    // Placeholder for delete functionality
+  const handleDelete = async () => {
+    if (!selectedTask) return;
+
     console.log('Delete task:', selectedTask);
+
+    try { 
+      const response = await fetch('http://localhost:8080/users/tasks/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(selectedTask)
+      });
+
+      if (!response.ok) {
+        console.log("Error in response:", response.statusText);
+        throw new Error('Failed to delete task');
+      }
+
+      const tasksArray = await response.json();
+      setTasks(tasksArray);
+      setAllTasks(tasksArray); 
+
+      console.log(`Fetched updated ${tasksArray.length} tasks.`);
+      console.log(tasksArray);
+
+    } catch (err) {
+      setError('Failed to delete task. Please try again later.');
+    }
+
     handleClose();
   };
 
@@ -67,6 +95,7 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
 
         return (
           <ListItem key={index} disablePadding className="task-item">
+
             <div className="task-content">
               {/* Show 'Done' label above task definition for done tasks */}
               {task.status === 'done' && (
@@ -93,6 +122,7 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
                   }
                 />
               </ListItemButton>
+              
             </div>
 
             {/* Three dots icon to open the menu */}
@@ -113,6 +143,7 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
                 Delete
               </MenuItem>
             </Menu>
+
           </ListItem>
         );
       })}

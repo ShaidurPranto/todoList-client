@@ -23,7 +23,9 @@ export default function Header() {
       zIndex: 1201,
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Optional: Adds shadow for a modern look
     }}>
+
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
         {/* Left Side: App Name */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Task Manager
@@ -32,9 +34,9 @@ export default function Header() {
         {/* Middle: Search bar (optional) */}
         <Box sx={{ display: 'flex', alignItems: 'center', backgroundColor: '#333', borderRadius: 1, padding: '4px 8px', maxWidth: '300px' }}>
           <SearchIcon sx={{ color: 'white', marginRight: '8px' }} />
-          <InputBase 
-            sx={{ color: 'white', width: '100%' }} 
-            placeholder="Search tasks..." 
+          <InputBase
+            sx={{ color: 'white', width: '100%' }}
+            placeholder="Search tasks..."
             inputProps={{ 'aria-label': 'search' }}
           />
         </Box>
@@ -50,8 +52,9 @@ export default function Header() {
             sx={{ mr: 2 }}
           >
             <AccountCircle />
+
           </IconButton>
-          
+
           {/* Avatar Icon (user profile picture) */}
           <Avatar alt="User" src="/path/to/avatar.jpg" sx={{ width: 32, height: 32 }} />
 
@@ -69,8 +72,11 @@ export default function Header() {
           <Button variant="contained" color="primary" sx={{ marginLeft: 2 }}>
             Create Task
           </Button>
+          
         </Box>
+
       </Toolbar>
+
     </AppBar>
   );
 }
