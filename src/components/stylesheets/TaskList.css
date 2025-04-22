@@ -38,3 +38,46 @@
     color: #ff5722;
   }
   
+  .task-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 8px 16px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .task-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: auto;  /* Ensures that the content aligns left */
+  }
+  
+  .status-label {
+    font-weight: bold;
+    margin-bottom: 4px; /* Space between label and task definition */
+  }
+  
+  .task-definition {
+    font-weight: normal;
+    margin-bottom: 4px;
+  }
+  
+  .task-details {
+    font-size: 0.9rem;
+    color: #757575;
+  }
+  
+  .mark-button {
+    margin-left: 8px;
+  }
+  
+  .done-label {
+    font-weight: bold;
+    color: green;
+  }
+  
+  .task-item button {
+    margin-top: 8px;  /* Adjust this as needed */
+  }
+  

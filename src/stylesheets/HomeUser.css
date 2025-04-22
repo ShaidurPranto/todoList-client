@@ -1,18 +1,45 @@
 .home-user-container {
-  background-color: #121212;
+  /* background-color: #121212; */
   color: #ffffff;
   padding: 20px;
   font-family: Arial, sans-serif;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;  
+}
+
+.middle-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.middle-left-container{
+  background-color: #1e1e1e;
+  width: 30%;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.middle-right-container{
+  background-color: #1e1e1e;
+}
+
 .section-heading {
   color: #f0f0f0;
-  font-size: 1.5rem;
+  font-size: 0.1rem;
   margin-bottom: 10px;
   text-align: center;
 }

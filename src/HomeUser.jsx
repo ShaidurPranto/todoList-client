@@ -6,10 +6,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import SidePanel from './components/SidePanel';
 import AddTask from './components/AddTask';
-import IncompletedTasks from './components/IncompletedTasks'; // Import IncompletedTasks component
+import IncompletedTasks from './components/IncompletedTasks'; 
 
 function HomeUser() {
   const [tasks, setTasks] = useState([]);
+  const [allTasks, setAllTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -28,11 +29,12 @@ function HomeUser() {
           throw new Error('Failed to fetch tasks');
         }
 
-        const tasksArray = await response.json(); // already parsed
-        setTasks(tasksArray); // directly set it
+        const tasksArray = await response.json(); 
+        setTasks(tasksArray); 
+        setAllTasks(tasksArray);
 
         console.log(`Fetched ${tasksArray.length} tasks.`);
-        console.log(tasksArray); // Log the tasks array to the console
+        console.log(tasksArray); 
 
       } catch (err) {
         setError('Failed to load tasks. Please try again later.');
@@ -58,7 +60,8 @@ function HomeUser() {
         </Container>
 
         <Container className="middle-right-container">
-          <AddTask tasks={tasks} setTasks={setTasks} setError={setError} /> {/* Added AddTask component */}
+          <AddTask tasks={tasks} setTasks={setTasks} setError={setError} allTasks={allTasks} setAllTasks={setAllTasks}/> 
+
           {loading ? (
             <Box display="flex" justifyContent="center" alignItems="center" height="200px">
               <CircularProgress />
@@ -66,8 +69,8 @@ function HomeUser() {
           ) : error ? (
             <Typography className="error-message" align="center">{error}</Typography>
           ) : (
-            <Box className="task-list">
-              <Typography variant="h5" className="section-heading">Your Tasks</Typography>
+            <Box className="task-list" sx={{ padding: 2 , borderRadius: 3, }}>
+              <Typography variant="h6" className="section-heading">Current Tasks</Typography>
 
               {tasks.length === 0 ? (
                 <Card className="empty-task-card">
@@ -77,12 +80,13 @@ function HomeUser() {
                 </Card>
               ) : (
                 <>
-                  <IncompletedTasks tasks={tasks} setTasks={setTasks} />
-                  <TaskList tasks={tasks} setTasks={setTasks} setError={setError} />
+                  <IncompletedTasks tasks={tasks} setTasks={setTasks} allTasks={allTasks}/>
+                  <TaskList tasks={tasks} setTasks={setTasks} setError={setError} allTasks={allTasks} setAllTasks={setAllTasks} />
                 </>
               )}
             </Box>
           )}
+
         </Container>
 
       </Container>

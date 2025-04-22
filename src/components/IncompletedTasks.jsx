@@ -1,28 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControlLabel, Checkbox } from '@mui/material';
 
-export default function IncompletedTasks({ tasks, setTasks }) {
+export default function IncompletedTasks({ tasks, setTasks, allTasks }) {
     const [showOnlyPending, setShowOnlyPending] = useState(false);
+
+    useEffect(() => {
+        if (showOnlyPending) {
+            const filteredTasks = allTasks.filter(task => task.status === 'pending');
+            setTasks(filteredTasks);
+        } else {
+            setTasks(allTasks);
+        }
+    }, [showOnlyPending, allTasks, setTasks]);
 
     const handleChange = (event) => {
         const checked = event.target.checked;
         setShowOnlyPending(checked);
-
-        if (checked) {
-            // Show only tasks with status 'pending'
-            const filteredTasks = tasks.filter(task => task.status === 'pending');
-            setTasks(filteredTasks);
-        } else {
-            // Refetch all tasks from the server (if available) or store a copy somewhere
-            fetch('http://localhost:8080/users/tasks', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => setTasks(data))
-                .catch(err => console.error("Error fetching all tasks:", err));
-        }
     };
 
     return (
@@ -30,13 +23,21 @@ export default function IncompletedTasks({ tasks, setTasks }) {
             control={<Checkbox checked={showOnlyPending} onChange={handleChange} />}
             label="Show only pending tasks"
             sx={{
-                backgroundColor: 'lightgrey',
+                backgroundColor: 'transparent',
+                width: '100%',
                 borderRadius: '4px',
-                px: 2,
-                py: 1,
-                mx: 1 // optional margin
+                marginBottom: '1rem',
+                marginTop: '1rem',
+                '&:hover': {
+                    backgroundColor: 'rgba(134, 130, 130, 0.1)',
+                },
+                '&:active': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                },
+                '&:focus': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                },
             }}
         />
-
     );
 }
