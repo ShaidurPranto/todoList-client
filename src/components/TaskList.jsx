@@ -1,14 +1,47 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { Button, Typography, Menu, MenuItem, IconButton } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';  // Three dots icon
-import './stylesheets/TaskList.css';
+import {
+  List, ListItem, ListItemButton, ListItemText, Menu, MenuItem,
+  IconButton, Typography
+} from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+const styles = {
+  list: {
+    backgroundColor: '#2e2e2e',
+    borderRadius: 2,
+    padding: 2,
+    width: 900,
+    margin: '0 auto',
+    boxShadow: 3
+  },
+  listItem: {
+    backgroundColor: '#333333',
+    borderRadius: 2,
+    margin: '10px 0',
+    padding: 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  statusText: {
+    fontWeight: 'bold',
+    marginBottom: 1
+  },
+  taskPrimary: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color: '#f1f1f1'
+  },
+  taskSecondary: {
+    fontSize: '0.9rem',
+    color: '#757575'
+  },
+  iconButton: {
+    color: '#ff5722'
+  }
+};
 
 export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTasks }) {
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedTask, setSelectedTask] = React.useState(null);
 
@@ -26,7 +59,7 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
     if (!selectedTask) return;
 
     try {
-      selectedTask.status = 'done'; 
+      selectedTask.status = 'done';
       const response = await fetch('http://localhost:8080/users/tasks/update', {
         method: 'PUT',
         headers: {
@@ -36,30 +69,23 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
         body: JSON.stringify(selectedTask)
       });
 
-      if (!response.ok) {
-        console.log("Error in response:", response.statusText);
-        throw new Error('Failed to update task');
-      }
+      if (!response.ok) throw new Error('Failed to update task');
 
       const tasksArray = await response.json();
       setTasks(tasksArray);
-      setAllTasks(tasksArray); 
-
-      console.log(`Fetched updated ${tasksArray.length} tasks.`);
-      console.log(tasksArray);
+      setAllTasks(tasksArray);
 
     } catch (err) {
       setError('Failed to update task. Please try again later.');
     }
+
     handleClose();
   };
 
   const handleDelete = async () => {
     if (!selectedTask) return;
 
-    console.log('Delete task:', selectedTask);
-
-    try { 
+    try {
       const response = await fetch('http://localhost:8080/users/tasks/delete', {
         method: 'DELETE',
         headers: {
@@ -69,17 +95,11 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
         body: JSON.stringify(selectedTask)
       });
 
-      if (!response.ok) {
-        console.log("Error in response:", response.statusText);
-        throw new Error('Failed to delete task');
-      }
+      if (!response.ok) throw new Error('Failed to delete task');
 
       const tasksArray = await response.json();
       setTasks(tasksArray);
-      setAllTasks(tasksArray); 
-
-      console.log(`Fetched updated ${tasksArray.length} tasks.`);
-      console.log(tasksArray);
+      setAllTasks(tasksArray);
 
     } catch (err) {
       setError('Failed to delete task. Please try again later.');
@@ -89,48 +109,39 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
   };
 
   return (
-    <List className="task-list-container">
+    <List sx={styles.list}>
       {tasks.map((task, index) => {
         const labelId = `checkbox-list-label-${index}`;
-
         return (
-          <ListItem key={index} disablePadding className="task-item">
-
-            <div className="task-content">
-              {/* Show 'Done' label above task definition for done tasks */}
+          <ListItem key={index} disablePadding sx={styles.listItem}>
+            <div>
               {task.status === 'done' && (
-                <Typography variant="body2" color="success.main" className="status-label">
+                <Typography variant="body2" color="success.main" sx={styles.statusText}>
                   Done
                 </Typography>
               )}
-
-              {/* Show 'Pending' label above task definition for pending tasks */}
               {task.status === 'pending' && (
-                <Typography variant="body2" color="warning.main" className="status-label">
+                <Typography variant="body2" color="warning.main" sx={styles.statusText}>
                   Pending
                 </Typography>
               )}
-
-              <ListItemButton role={undefined} onClick={() => { /* does nothing */ }} dense>
+              <ListItemButton dense>
                 <ListItemText
                   id={labelId}
-                  primary={<span className="task-definition">{task.definition}</span>}
+                  primary={<span style={styles.taskPrimary}>{task.definition}</span>}
                   secondary={
-                    <span className="task-details">
-                      Status: <b>{task.status}</b> | Time: <b>{new Date(task.eventTime).toLocaleString()}</b>
+                    <span style={styles.taskSecondary}>
+                      Do within: <b>{new Date(task.eventTime).toLocaleString()}</b>
                     </span>
                   }
                 />
               </ListItemButton>
-              
             </div>
 
-            {/* Three dots icon to open the menu */}
-            <IconButton onClick={(event) => handleClick(event, task)}>
+            <IconButton onClick={(e) => handleClick(e, task)} sx={styles.iconButton}>
               <MoreVertIcon />
             </IconButton>
 
-            {/* Menu with options */}
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl) && selectedTask === task}
@@ -139,11 +150,8 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
               <MenuItem onClick={markAsDone} disabled={task.status === 'done'}>
                 Mark as Done
               </MenuItem>
-              <MenuItem onClick={handleDelete}>
-                Delete
-              </MenuItem>
+              <MenuItem onClick={handleDelete}>Delete</MenuItem>
             </Menu>
-
           </ListItem>
         );
       })}

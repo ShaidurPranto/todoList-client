@@ -12,9 +12,47 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { all } from 'axios';
 
-const AddTask = ({ tasks, setTasks, onTaskAdded , allTasks , setAllTasks }) => {
+const styles = {
+  addButtonBox: {
+    mt: 3,
+  },
+  card: {
+    mt: 3,
+    backgroundColor: '#1e1e1e',
+    boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
+    color: '#ffffff',
+    borderRadius: 2,
+    width : 800,
+  },
+  title: {
+    color: '#ffffff',
+  },
+  formBox: {
+    backgroundColor: 'rgb(167, 163, 163)',
+    color: '#1e1e1e',
+    border: '1px solid #444',
+    borderRadius: 2,
+    padding: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+  },
+  addButton: {
+    backgroundColor: '#1976d2',
+    '&:hover': {
+      backgroundColor: '#1976d2',
+    },
+  },
+  cancelButton: {
+    backgroundColor: '#d32f2f',
+    '&:hover': {
+      backgroundColor: '#d32f2f',
+    },
+  }
+};
+
+const AddTask = ({ tasks, setTasks, onTaskAdded, allTasks, setAllTasks }) => {
   const [definition, setDefinition] = useState('');
   const [eventTime, setEventTime] = useState(null);
   const [error, setError] = useState('');
@@ -61,7 +99,6 @@ const AddTask = ({ tasks, setTasks, onTaskAdded , allTasks , setAllTasks }) => {
 
       setSuccessMessage(message);
 
-      // ✅ Update task list with the newly added task
       const newTask = {
         definition,
         status: 'pending',
@@ -78,10 +115,9 @@ const AddTask = ({ tasks, setTasks, onTaskAdded , allTasks , setAllTasks }) => {
     }
   };
 
-
   if (!showForm) {
     return (
-      <Box mt={3}>
+      <Box sx={styles.addButtonBox}>
         <Button
           variant="outlined"
           color="primary"
@@ -94,37 +130,13 @@ const AddTask = ({ tasks, setTasks, onTaskAdded , allTasks , setAllTasks }) => {
   }
 
   return (
-    <Card
-      sx={{
-        mt: 3,
-        backgroundColor: '#1e1e1e', // dark modern card
-        boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
-        color: '#ffffff',
-        borderRadius: 2,
-      }}
-    >
+    <Card sx={styles.card}>
       <CardContent>
-        <Typography variant="h6" gutterBottom sx={{ color: '#ffffff' }}>
-          Add New Task
-        </Typography>
 
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
         {successMessage && <Alert severity="success" sx={{ mb: 2 }}>{successMessage}</Alert>}
 
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          display="flex"
-          flexDirection="column"
-          gap={2}
-          sx={{
-            backgroundColor: 'rgb(167, 163, 163)', // corrected color
-            color: '#1e1e1e', // dark modern text color
-            border: '1px solid #444',
-            borderRadius: 2,
-            padding: 3,
-          }}
-        >
+        <Box component="form" onSubmit={handleSubmit} sx={styles.formBox}>
           <TextField
             label="Define Task"
             variant="outlined"
@@ -148,41 +160,26 @@ const AddTask = ({ tasks, setTasks, onTaskAdded , allTasks , setAllTasks }) => {
             />
           </LocalizationProvider>
 
-
           <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
-              color="primary"
               type="submit"
-              sx={{
-                backgroundColor: '#1976d2', // default MUI primary color
-                '&:hover': {
-                  backgroundColor: '#1976d2', // keep the same color on hover
-                },
-              }}
+              sx={styles.addButton}
             >
               Add
             </Button>
 
             <Button
               variant="contained"
-              color="error"
               onClick={resetForm}
-              sx={{
-                backgroundColor: '#d32f2f',
-                '&:hover': {
-                  backgroundColor: '#d32f2f',
-                },
-              }}
+              sx={styles.cancelButton}
             >
               Cancel
             </Button>
           </Stack>
-
         </Box>
       </CardContent>
     </Card>
-
   );
 };
 
