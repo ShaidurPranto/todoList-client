@@ -97,9 +97,9 @@ function HomeUser() {
         const response = await fetch('http://localhost:8080/users/tasks', {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include'
         });
 
         if (!response.ok) {

@@ -19,6 +19,7 @@ function Login() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
+        credentials: 'include'
       });
 
       if (!response.ok) {
@@ -26,8 +27,9 @@ function Login() {
       }
 
       const result = await response.text();
-      localStorage.setItem('token', result);
+
       navigate('/homeUser');
+      
     } catch (err) {
       setError('Login failed. Please check your credentials.');
       console.error(err);

@@ -81,14 +81,14 @@ const AddTask = ({ tasks, setTasks, onTaskAdded, allTasks, setAllTasks }) => {
       const response = await fetch('http://localhost:8080/users/tasks/add', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           definition,
           status: 'pending',
           eventTime
-        })
+        }),
+        credentials: 'include'
       });
 
       const message = await response.text();

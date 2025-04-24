@@ -63,10 +63,10 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
       const response = await fetch('http://localhost:8080/users/tasks/update', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(selectedTask)
+        body: JSON.stringify(selectedTask),
+        credentials: 'include'  
       });
 
       if (!response.ok) throw new Error('Failed to update task');
@@ -89,10 +89,10 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
       const response = await fetch('http://localhost:8080/users/tasks/delete', {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(selectedTask)
+        body: JSON.stringify(selectedTask),
+        credentials: 'include'  
       });
 
       if (!response.ok) throw new Error('Failed to delete task');
