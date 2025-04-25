@@ -6,6 +6,12 @@ import Footer from './components/Footer';
 import SidePanel from './components/SidePanel';
 import AddTask from './components/AddTask';
 import IncompletedTasks from './components/IncompletedTasks';
+import CompletedTasks from './components/CompletedTasks';
+import FailedTasks from './components/FailedTasks';
+import AllTasks from './components/AllTasks';
+import DeveloperInfo from './components/DeveloperInfo';
+import { useNavigate } from 'react-router-dom';
+
 
 const styles = {
   rootContainer: {
@@ -91,6 +97,7 @@ function HomeUser() {
   const [allTasks, setAllTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentView, setCurrentView] = useState('Home');
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -134,43 +141,34 @@ function HomeUser() {
       <Container sx={styles.layoutContainer}>
 
         <Container sx={styles.sidePanel}>
-          <SidePanel />
+          <SidePanel currentView={currentView} setCurrentView={setCurrentView} />
         </Container>
 
         <Container sx={styles.mainContent}>
-          <AddTask tasks={tasks} setTasks={setTasks} setError={setError} allTasks={allTasks} setAllTasks={setAllTasks} />
-
           {loading ? (
             <Box sx={styles.loadingBox}>
               <CircularProgress sx={{ color: '#ff5722' }} />
             </Box>
           ) : error ? (
-            <Typography sx={styles.errorText}>
-              {error}
-            </Typography>
+            <Typography sx={styles.errorText}>{error}</Typography>
           ) : (
-            <Box sx={styles.taskWrapper}>
-              {/* <Typography variant="h6" sx={styles.currentTasksTitle}>
-                Current Tasks
-              </Typography> */}
-
-              {allTasks.length === 0 ? (
-                <Card sx={styles.noTasksCard}>
-                  <CardContent>
-                    <Typography variant="body1" align="center">
-                      No tasks available. Create a new task.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              ) : (
+            <>
+              {currentView === 'Home' && (
                 <>
+                  <AddTask tasks={tasks} setTasks={setTasks} setError={setError} allTasks={allTasks} setAllTasks={setAllTasks} />
                   <IncompletedTasks tasks={tasks} setTasks={setTasks} allTasks={allTasks} />
                   <TaskList tasks={tasks} setTasks={setTasks} setError={setError} allTasks={allTasks} setAllTasks={setAllTasks} />
                 </>
               )}
-            </Box>
+
+              {currentView === 'Completed Tasks' && <CompletedTasks />}
+              {currentView === 'Failed Tasks' && <FailedTasks />}
+              {currentView === 'Task History' && <AllTasks />}
+              {currentView === 'Developer Info' && <DeveloperInfo />}
+            </>
           )}
         </Container>
+
 
       </Container>
 
