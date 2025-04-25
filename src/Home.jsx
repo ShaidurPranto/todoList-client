@@ -87,7 +87,7 @@ function Home() {
 
       <div style={styles.root}>
         <div style={styles.container}>
-          <h1 style={styles.heading}>Plan It. Do It. Done.</h1>
+          <h1 style={styles.heading}>Plan It. Do It. Make it Done.</h1>
           <p style={styles.subText}>Manage your tasks efficiently and stay organized.</p>
 
           <Link

@@ -27,9 +27,7 @@ function Login() {
       }
 
       const result = await response.text();
-
       navigate('/homeUser');
-      
     } catch (err) {
       setError('Login failed. Please check your credentials.');
       console.error(err);
@@ -44,28 +42,26 @@ function Login() {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
+      background: 'linear-gradient(135deg, #1a1a1a, #242424)',
       fontFamily: 'Segoe UI, sans-serif',
-      overflow: 'hidden',
     },
     loginForm: {
-      backdropFilter: 'blur(12px)',
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      backgroundColor: 'rgba(255, 255, 255, 0.04)',
       padding: '30px',
       borderRadius: '15px',
-      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)',
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       width: '320px',
-      color: '#fff',
+      color: '#ffffff',
       border: '1px solid rgba(255,255,255,0.1)',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     },
     title: {
-      fontSize: '2em',
+      fontSize: '2rem',
       marginBottom: '20px',
       fontWeight: 600,
+      color: '#90caf9',
     },
     label: {
       display: 'flex',
@@ -74,7 +70,7 @@ function Login() {
       marginBottom: '15px',
       width: '100%',
       fontSize: '0.9em',
-      color: '#ddd',
+      color: '#e0e0e0',
     },
     input: {
       padding: '10px',
@@ -82,17 +78,17 @@ function Login() {
       width: '100%',
       border: 'none',
       borderRadius: '8px',
-      outline: 'none',
-      fontSize: '1em',
       backgroundColor: '#1e2a38',
-      color: '#fff',
+      color: '#ffffff',
+      fontSize: '1em',
+      outline: 'none',
     },
     button: {
       marginTop: '15px',
       padding: '10px',
       width: '100%',
-      background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
-      color: 'white',
+      background: '#90caf9',
+      color: '#000000',
       border: 'none',
       borderRadius: '10px',
       fontWeight: 600,
@@ -103,6 +99,7 @@ function Login() {
     buttonDisabled: {
       background: '#555',
       cursor: 'not-allowed',
+      color: '#ccc',
     },
     errorMessage: {
       color: '#ff6b6b',

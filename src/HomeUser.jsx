@@ -56,6 +56,7 @@ const styles = {
     textAlign: 'center',
     fontSize: '1.2rem',
     color: 'red',
+    marginTop: '30px',
   },
   taskWrapper: {
     padding: 2,
