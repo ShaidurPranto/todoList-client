@@ -6,7 +6,7 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.REACT_APP_API_URL;
 
 const styles = {
   list: {

@@ -12,7 +12,7 @@ import AllTasks from './components/AllTasks';
 import DeveloperInfo from './components/DeveloperInfo';
 import { useNavigate } from 'react-router-dom';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.REACT_APP_API_URL;
 
 
 const styles = {
@@ -103,6 +103,12 @@ function HomeUser() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    console.log('HomeUser component mounted');
+    // Delay function to wait for 2 minutes before calling fetchTasks
+    //const delay = 120000; // 2 minutes in milliseconds
+    const delay = 0; // Set to 0 for immediate execution during development
+
     const fetchTasks = async () => {
       try {
         const response = await fetch(`${apiUrl}/users/tasks`, {
@@ -136,8 +142,14 @@ function HomeUser() {
       }
     };
 
-    fetchTasks();
-  }, []);
+    // Set a timeout to delay the fetchTasks call by 2 minutes (120000ms)
+    const timeoutId = setTimeout(fetchTasks, delay);
+
+    // Cleanup the timeout if the component unmounts
+    return () => clearTimeout(timeoutId);
+
+  }, []); // Empty dependency array means this effect runs once after initial render.
+
 
   return (
     <Container sx={styles.rootContainer}>
