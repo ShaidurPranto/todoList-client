@@ -3,6 +3,8 @@ import { AppBar, Toolbar, Typography, Button, IconButton, Box, InputBase, Menu, 
 import { Search as SearchIcon, AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const styles = {
   appBar: {
     bgcolor: '#2c2c2c',
@@ -54,7 +56,7 @@ export default function Header() {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const response = await fetch('http://localhost:8080/users/name', {
+        const response = await fetch(`${apiUrl}/users/name`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',

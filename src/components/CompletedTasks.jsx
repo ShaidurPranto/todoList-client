@@ -18,6 +18,8 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const styles = {
   container: {
     mt: 4,
@@ -103,7 +105,7 @@ export default function CompletedTasks() {
   useEffect(() => {
     const fetchCompletedTasks = async () => {
       try {
-        const response = await fetch('http://localhost:8080/users/tasks/previousCompleted', {
+        const response = await fetch(`${apiUrl}/users/tasks/previousCompleted`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
@@ -137,7 +139,7 @@ export default function CompletedTasks() {
     if (!taskToDelete) return;
 
     try {
-      const response = await fetch('http://localhost:8080/users/tasks/delete', {
+      const response = await fetch(`${apiUrl}/users/tasks/delete`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskToDelete),

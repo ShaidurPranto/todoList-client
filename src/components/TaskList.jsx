@@ -6,6 +6,8 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const styles = {
   list: {
     backgroundColor: '#2e2e2e',
@@ -62,7 +64,7 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
 
     try {
       selectedTask.status = 'done';
-      const response = await fetch('http://localhost:8080/users/tasks/update', {
+      const response = await fetch(`${apiUrl}/users/tasks/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -93,7 +95,7 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
     if (!selectedTask) return;
 
     try {
-      const response = await fetch('http://localhost:8080/users/tasks/delete', {
+      const response = await fetch(`${apiUrl}/users/tasks/delete`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

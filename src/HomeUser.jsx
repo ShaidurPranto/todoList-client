@@ -12,6 +12,8 @@ import AllTasks from './components/AllTasks';
 import DeveloperInfo from './components/DeveloperInfo';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 const styles = {
   rootContainer: {
@@ -103,7 +105,7 @@ function HomeUser() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch('http://localhost:8080/users/tasks', {
+        const response = await fetch(`${apiUrl}/users/tasks`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

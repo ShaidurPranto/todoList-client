@@ -14,6 +14,8 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const styles = {
   addButtonBox: {
     mt: 3,
@@ -80,7 +82,7 @@ const AddTask = ({ tasks, setTasks, onTaskAdded, allTasks, setAllTasks }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/users/tasks/add', {
+      const response = await fetch(`${apiUrl}/users/tasks/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
