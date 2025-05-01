@@ -12,6 +12,7 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   addButtonBox: {
@@ -58,6 +59,7 @@ const AddTask = ({ tasks, setTasks, onTaskAdded, allTasks, setAllTasks }) => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const navigate = useNavigate();
 
   const resetForm = () => {
     setDefinition('');
@@ -90,6 +92,11 @@ const AddTask = ({ tasks, setTasks, onTaskAdded, allTasks, setAllTasks }) => {
         }),
         credentials: 'include'
       });
+
+      if(response.status === 401) {
+        navigate('/login');
+        return;
+      }
 
       const message = await response.text();
 

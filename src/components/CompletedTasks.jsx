@@ -16,6 +16,7 @@ import {
   Button,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   container: {
@@ -93,6 +94,7 @@ export default function CompletedTasks() {
   const [error, setError] = useState('');
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompletedTasks = async () => {
@@ -102,6 +104,11 @@ export default function CompletedTasks() {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
         });
+
+        if (response.status === 401) {
+          navigate('/login');
+          return;
+        }
 
         if (!response.ok) throw new Error('Failed to fetch completed tasks');
 
@@ -133,16 +140,19 @@ export default function CompletedTasks() {
         credentials: 'include',
       });
 
+      if (response.status === 401) {
+        navigate('/login');
+        return;
+      }
+
       if (!response.ok) throw new Error('Failed to delete task');
 
-      // ✅ Remove locally using definition + eventTime
       setCompletedTasks((prev) =>
         prev.filter(
-          (t) =>
-            t.definition !== taskToDelete.definition ||
-            t.eventTime !== taskToDelete.eventTime
+          (t) => !(t.definition === taskToDelete.definition && t.eventTime === taskToDelete.eventTime)
         )
       );
+      
     } catch (err) {
       setError('Failed to delete task. Please try again later.');
     }

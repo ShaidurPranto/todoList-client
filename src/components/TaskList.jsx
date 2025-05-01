@@ -4,6 +4,7 @@ import {
   IconButton, Typography
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   list: {
@@ -44,6 +45,7 @@ const styles = {
 export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTasks }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedTask, setSelectedTask] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleClick = (event, task) => {
     setAnchorEl(event.currentTarget);
@@ -68,6 +70,11 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
         body: JSON.stringify(selectedTask),
         credentials: 'include'  
       });
+
+      if (response.status === 401) {
+        navigate('/login');
+        return;
+      }
 
       if (!response.ok) throw new Error('Failed to update task');
 
@@ -94,6 +101,11 @@ export default function TaskList({ tasks, setTasks, setError, allTasks, setAllTa
         body: JSON.stringify(selectedTask),
         credentials: 'include'  
       });
+
+      if (response.status === 401) {
+        navigate('/login');
+        return;
+      }
 
       if (!response.ok) throw new Error('Failed to delete task');
 

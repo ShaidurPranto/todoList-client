@@ -98,6 +98,7 @@ function HomeUser() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentView, setCurrentView] = useState('Home');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -109,6 +110,11 @@ function HomeUser() {
           },
           credentials: 'include'
         });
+
+        if (response.status === 401) {
+          navigate('/login');
+          return;
+        }
 
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
