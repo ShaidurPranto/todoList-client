@@ -25,12 +25,12 @@ const styles = {
     justifyContent: 'space-between'
   },
   statusText: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginBottom: 1
   },
   taskPrimary: {
     fontSize: '1.2rem',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#f1f1f1'
   },
   taskSecondary: {

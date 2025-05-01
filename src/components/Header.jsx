@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton, Box, InputBase, Menu, MenuItem, Avatar } from '@mui/material';
 import { Search as SearchIcon, AccountCircle } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
   appBar: {
@@ -47,6 +48,34 @@ const styles = {
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [userName, setUserName] = React.useState('');
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/users/name', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+        });
+
+        if (response.status === 401) {
+          navigate('/login'); 
+          return;
+        }
+
+        if (!response.ok) throw new Error('Failed to fetch user name');
+
+        const data = await response.text();
+        setUserName(data);
+      } catch (err) {
+        console.error('Error fetching user name:', err);
+      }
+    };
+
+    fetchUserName();
+  }, []);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,19 +94,19 @@ export default function Header() {
         </Typography>
 
         {/* Middle: Search bar (optional) */}
-        <Box sx={styles.searchBox}>
+        {/* <Box sx={styles.searchBox}>
           <SearchIcon sx={styles.searchIcon} />
           <InputBase
             sx={styles.inputBase}
             placeholder="Search tasks..."
             inputProps={{ 'aria-label': 'search' }}
           />
-        </Box>
+        </Box> */}
 
         {/* Right Side: Profile and Actions */}
         <Box sx={styles.profileBox}>
           {/* Menu Icon for additional options */}
-          <IconButton
+          {/* <IconButton
             size="large"
             edge="end"
             color="inherit"
@@ -85,27 +114,33 @@ export default function Header() {
             sx={{ mr: 2 }}
           >
             <AccountCircle />
-          </IconButton>
+          </IconButton> */}
 
           {/* Avatar Icon (user profile picture) */}
-          <Avatar alt="User" src="/path/to/avatar.jpg" sx={styles.avatar} />
+          {/* <Avatar alt="User" src="/path/to/avatar.jpg" sx={styles.avatar} /> */}
+
+          {/* ✅ Show user name here */}
+          <Typography sx={{ color: 'white', ml: 1 }}>{userName}</Typography>
 
           {/* Menu for Profile Options */}
-          <Menu
+          {/* <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-          </Menu>
+          </Menu> */}
 
           {/* Create Task Button */}
-          <Button variant="contained" color="primary" sx={styles.createTaskButton}>
+          {/* <Button variant="contained" color="primary" sx={styles.createTaskButton}>
             Create Task
-          </Button>
+          </Button> */}
+
         </Box>
+
       </Toolbar>
     </AppBar>
   );
 }
+

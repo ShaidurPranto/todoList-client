@@ -23,9 +23,7 @@ const styles = {
     mt: 4,
     p: 2,
     borderRadius: '12px',
-    bgcolor: '#121212',
-    boxShadow: '0 0 12px rgba(0,0,0,0.5)',
-    width: '100%',
+    width: 900,
     overflow: 'hidden',
   },
   header: {
@@ -41,13 +39,10 @@ const styles = {
     mb: 2,
   },
   list: {
-    bgcolor: '#1e1e1e',
     color: '#e0e0e0',
     borderRadius: '8px',
-    p: 1,
   },
   listItem: {
-    borderBottom: '1px solid #333',
     px: 2,
     py: 1.5,
     display: 'flex',
@@ -55,6 +50,13 @@ const styles = {
     alignItems: 'center',
     flexWrap: 'wrap',
     wordBreak: 'break-word',
+    marginBottom: 1,
+    padding: 2,
+    backgroundColor: '#333333',
+    borderRadius: 2,
+    '&:hover': {
+      backgroundColor: '#444444',
+    },
   },
   taskPrimary: {
     fontSize: '1rem',
@@ -208,7 +210,7 @@ export default function AllTasks() {
                   primary={<span style={styles.taskPrimary}>{task.definition}</span>}
                   secondary={
                     <span style={styles.taskSecondary}>
-                      Scheduled for: <b>{new Date(task.eventTime).toLocaleString()}</b>
+                      Target Date : <b>{new Date(task.eventTime).toLocaleString()}</b>
                     </span>
                   }
                 />
