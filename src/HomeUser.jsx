@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 
 const apiUrl = import.meta.env.REACT_APP_API_URL;
 
+console.log("This is HomeUser page");
+
 
 const styles = {
   rootContainer: {
@@ -103,13 +105,12 @@ function HomeUser() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     console.log('HomeUser component mounted');
-    // Delay function to wait for 2 minutes before calling fetchTasks
-    //const delay = 120000; // 2 minutes in milliseconds
-    const delay = 0; // Set to 0 for immediate execution during development
+    console.log("now waiting for 2 seconds before calling fetchTasks");
+    const delay = 1000*2; // Set to 0 for immediate execution during development
 
     const fetchTasks = async () => {
+      console.log('Fetching tasks...');
       try {
         const response = await fetch(`${apiUrl}/users/tasks`, {
           method: 'GET',

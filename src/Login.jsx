@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const apiUrl = import.meta.env.REACT_APP_API_URL;
+console.log("This is login page");
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,11 +11,15 @@ function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  console.log('API URL:', apiUrl);
+  console.log('This is login page , API URL:', apiUrl);
 
   const handleSubmit = async (e) => {
+
+    console.log('Form submitted:', { email, password });
+
     e.preventDefault();
     setIsSubmitting(true);
+    if(isSubmitting) return;
 
     const data = { email, password };
 
