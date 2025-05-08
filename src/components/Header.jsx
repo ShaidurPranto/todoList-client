@@ -91,7 +91,7 @@ export default function Header() {
     <AppBar position="fixed" sx={styles.appBar}>
       <Toolbar sx={styles.toolbar}>
         {/* Left Side: App Name */}
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 , color: '#90caf9'}}>
           Task Manager
         </Typography>
 
@@ -122,7 +122,7 @@ export default function Header() {
           {/* <Avatar alt="User" src="/path/to/avatar.jpg" sx={styles.avatar} /> */}
 
           {/* ✅ Show user name here */}
-          <Typography sx={{ color: 'white', ml: 1 }}>{userName}</Typography>
+          <Typography sx={{ color: '#90caf9', ml: 1 }}>{userName}</Typography>
 
           {/* Menu for Profile Options */}
           {/* <Menu

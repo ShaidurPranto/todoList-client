@@ -106,8 +106,8 @@ function HomeUser() {
 
   useEffect(() => {
     console.log('HomeUser component mounted');
-    console.log("now waiting for 2 seconds before calling fetchTasks");
-    const delay = 1000*2; // Set to 0 for immediate execution during development
+    console.log("now waiting for 100 milliseconds before calling fetchTasks");
+    const delay = 100; // Set to 0 for immediate execution during development
 
     const fetchTasks = async () => {
       console.log('Fetching tasks...');
@@ -143,7 +143,7 @@ function HomeUser() {
       }
     };
 
-    // Set a timeout to delay the fetchTasks call by 2 minutes (120000ms)
+    // Set a timeout to delay the fetchTasks call
     const timeoutId = setTimeout(fetchTasks, delay);
 
     // Cleanup the timeout if the component unmounts
