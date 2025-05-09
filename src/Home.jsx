@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const apiUrl = import.meta.env.REACT_APP_API_URL;
+const loginWithGoogle = apiUrl + "/oauth2/authorization/google";
+
+
+
 function Home() {
   const styles = {
     root: {
@@ -45,6 +50,31 @@ function Home() {
       transition: 'all 0.3s ease',
       animation: 'popIn 1.4s ease-in-out',
     },
+
+
+    googleButton: {
+      marginTop: '20px',
+      padding: '10px 16px',
+      background: '#ffffff',
+      color: '#444',
+      borderRadius: '6px',
+      fontWeight: 500,
+      fontSize: '0.95em',
+      border: '1px solid #ccc',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      textDecoration: 'none',
+      transition: 'background 0.3s',
+    },
+
+    googleIcon: {
+      width: '20px',
+      height: '20px',
+    },
+
+
   };
 
   const handleHoverIn = (e) => {
@@ -59,32 +89,6 @@ function Home() {
 
   return (
     <>
-      <style>
-        {`
-          @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-          }
-
-          @keyframes slideDown {
-            0% { transform: translateY(-20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-          }
-
-          @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-          }
-
-          /* Also clear any extra scroll from the body or html */
-          body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-          }
-        `}
-      </style>
-
       <div style={styles.root}>
         <div style={styles.container}>
           <h1 style={styles.heading}>Plan It. Make it Done.</h1>
@@ -106,7 +110,21 @@ function Home() {
           >
             Signup
           </Link>
+
+
+          <a href={loginWithGoogle} style={styles.googleButton}>
+            <img
+              src="https://developers.google.com/identity/images/g-logo.png"
+              alt="Google"
+              style={styles.googleIcon}
+            />
+            <span>Continue with Google</span>
+          </a>
+
+
         </div>
+
+
       </div>
     </>
   );

@@ -200,7 +200,7 @@ function Login() {
         <hr style={styles.horizontalLine} />
 
         {/* Google Login Button */}
-        <a href={loginWithGoogle} style={{ marginTop: '12px', textDecoration: 'none' }}>
+        {/* <a href={loginWithGoogle} style={{ marginTop: '12px', textDecoration: 'none' }}>
           <div style={styles.googleButton}>
             <img
               src="https://developers.google.com/identity/images/g-logo.png"
@@ -209,7 +209,7 @@ function Login() {
             />
             <span style={styles.googleText}>Login with Google</span>
           </div>
-        </a>
+        </a> */}
       </form>
     </div>
   );
